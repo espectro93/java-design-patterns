@@ -8,35 +8,29 @@ tags:
  - Gang of Four
 ---
 
-## Also known as
+## 又被称为
+游标
 
-Cursor
+## 目的
+提供一种在不暴露其基础表示的情况下顺序访问聚合对象的元素的方法。
 
-## Intent
-Provide a way to access the elements of an aggregate object sequentially without exposing its 
-underlying representation.
+## 解释
 
-## Explanation
+真实世界例子
 
-Real world example
+> 百宝箱包含一组魔法物品。有多种物品，例如戒指，药水和武器。可以使用藏宝箱提供的迭代器按类型浏览商品。
 
-> Treasure chest contains a set of magical items. There multiple types of items such as rings, 
-> potions and weapons. The items can be browsed by type using an iterator the treasure chest 
-> provides. 
+通俗地说
 
-In plain words
+> 容器可以提供与表示形式无关的迭代器接口，以提供对元素的访问。
 
-> Containers can provide a representation agnostic iterator interface to provide access to the 
-> elements. 
+维基百科说
 
-Wikipedia says
+> 在面向对象的编程中，迭代器模式是一种设计模式，其中迭代器用于遍历容器并访问容器的元素。
 
-> In object-oriented programming, the iterator pattern is a design pattern in which an iterator is 
-> used to traverse a container and access the container's elements.
+**程序示例**
 
-**Programmatic Example**
-
-The main class in our example is the `TreasureChest` that contains items.
+在我们的示例中包含物品的藏宝箱是主要类。
 
 ```java
 public class TreasureChest {
@@ -65,11 +59,7 @@ public class TreasureChest {
     return new ArrayList<>(items);
   }
 }
-```
 
-Here's the `Item` class:
-
-```java
 public class Item {
 
   private ItemType type;
@@ -101,7 +91,7 @@ public enum ItemType {
 }
 ```
 
-The `Iterator` interface is extremely simple.
+迭代器接口极度简单。
 
 ```java
 public interface Iterator<T> {
@@ -112,44 +102,33 @@ public interface Iterator<T> {
 }
 ```
 
-In the following example we iterate through the ring type items found in the chest. 
+在以下示例中，我们遍历在宝箱中找到的戒指类型物品。
 
 ```java
 var itemIterator = TREASURE_CHEST.iterator(ItemType.RING);
 while (itemIterator.hasNext()) {
   LOGGER.info(itemIterator.next().toString());
 }
+// Ring of shadows
+// Ring of armor
 ```
 
-Program output:
+## 类图
+![alt text](../../iterator/etc/iterator_1.png "Iterator")
 
-```java
-Ring of shadows
-Ring of armor
-```
+## 适用性
+以下情况使用迭代器模式
 
-## Class diagram
+* 在不暴露其内部表示的情况下访问聚合对象的内容
+* 为了支持聚合对象的多种遍历方式
+* 提供一个遍历不同聚合结构的统一接口
 
-![alt text](./etc/iterator_1.png "Iterator")
-
-## Applicability
-
-Use the Iterator pattern
-
-* To access an aggregate object's contents without exposing its internal representation.
-* To support multiple traversals of aggregate objects.
-* To provide a uniform interface for traversing different aggregate structures.
-
-## Tutorials
-
-* [How to Use Iterator?](http://www.tutorialspoint.com/java/java_using_iterator.htm)
-
-## Real world examples
+## Java世界例子
 
 * [java.util.Iterator](http://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html)
 * [java.util.Enumeration](http://docs.oracle.com/javase/8/docs/api/java/util/Enumeration.html)
 
-## Credits
+## 鸣谢
 
 * [Design Patterns: Elements of Reusable Object-Oriented Software](https://www.amazon.com/gp/product/0201633612/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0201633612&linkCode=as2&tag=javadesignpat-20&linkId=675d49790ce11db99d90bde47f1aeb59)
 * [Head First Design Patterns: A Brain-Friendly Guide](https://www.amazon.com/gp/product/0596007124/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0596007124&linkCode=as2&tag=javadesignpat-20&linkId=6b8b6eea86021af6c8e3cd3fc382cb5b)
